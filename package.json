@@ -1,0 +1,19 @@
+{
+  "name": "wordhelp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "colorprint": "^4.1.0",
+    "colors": "^1.1.2",
+    "commander": "^2.15.0",
+    "inquirer": "^5.1.0",
+    "moment": "^2.21.0",
+    "request": "^2.83.0"
+  }
+}
