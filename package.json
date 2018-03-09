@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^2.3.2",
     "colorprint": "^4.1.0",
     "colors": "^1.1.2",
     "commander": "^2.15.0",
