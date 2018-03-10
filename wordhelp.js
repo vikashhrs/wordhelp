@@ -2,15 +2,11 @@ const commander = require('commander');
 
 const App_Logic = require('./app_logics/app_logic');
 
+const Game = require('./app_logics/game');
+
 commander
   .version('1.0.0')
   .description('Word Help');
-
-
-commander
-  .command('word_of_the_day')
-  .description("Word of the day")
-  .action(App_Logic.wordOfTheDay());
 
 
 commander
@@ -53,6 +49,22 @@ commander
 
   		}
   });
+
+
+commander
+  .command('play')
+  .description('Word Guessting Game')
+  .action(() => {
+  		
+  		Game.generateRandomWord();
+
+  });
+
+
+// commander
+//   .command('word_of_the_day')
+//   .description("Word of the day")
+//   .action(App_Logic.wordOfTheDay());
 
 
 
