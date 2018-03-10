@@ -26,8 +26,6 @@ const choicesQuestion = [
 	}
 ];
 
-const choices = choicesQuestion.choices;
-
 
 module.exports.generateRandomWord = function(){
 

@@ -1,6 +1,6 @@
 const commander = require('commander');
 
-const App_Logic = require('./app_logics/app_logic');
+const App_Logic = require('./app_logics/dic_func');
 
 const Game = require('./app_logics/game');
 
@@ -10,45 +10,51 @@ commander
 
 
 commander
-  .command('synonym_of <word>')
+  .command('def <word>')
+  .description('Definitions of word')
+  .action((word) => {
+      App_Logic.dic_definitions(word);
+  });
+
+commander
+  .command('syn <word>')
   .description('Synonyms of word')
   .action((word) => {
-  	console.log(word);
-  		App_Logic.synonymsOfWord(word);
+  		App_Logic.dic_synonyms(word);
   });
 
 
 
 commander
-  .command('antonym_of <word>')
+  .command('ant <word>')
   .description('Antonyms of word')
   .action((word) => {
-  	console.log(word);
-  		App_Logic.antonymsOfWord(word);
+  		App_Logic.dic_antonyms(word);
   });
 
 
 commander
-  .command('examples_of <word>')
+  .command('ex <word>')
   .description('Examples of word')
   .action((word) => {
-  		App_Logic.examplesOfWord(word);
+  		App_Logic.dic_examples(word);
   });
+
+// commander
+//   .command('dict <word>')
+//   .description('All details of word')
+//   .action((word) => {
+//     console.log(word)
+//           App_Logic.dic_displayAll(word);
+//   });
 
 commander
-  .command('dictionary_of [words...]')
-  .description('Examples of word')
+  .command('[words...]')
+  .description('All details of word')
   .action((words) => {
-  		if(words.length == 2){
-  			if(word[0] != "dict"){
-  				console.log("Invalid Command");
-  			}else{
-  				console.log("Valid Commands");
-  			}
-  		}else{
-
-  		}
+          console.log(words)
   });
+
 
 
 commander
@@ -62,9 +68,9 @@ commander
 
 
 // commander
-//   .command('word_of_the_day')
+//   .command('')
 //   .description("Word of the day")
-//   .action(App_Logic.wordOfTheDay());
+//   .action(App_Logic.dic_wordoftheday());
 
 
 
