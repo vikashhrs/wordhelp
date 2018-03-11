@@ -8,6 +8,13 @@ commander
   .version('1.0.0')
   .description('Word Help');
 
+commander
+  .command('dic <word>')
+  .description('Dictionary of word')
+  .action((word) => {
+      App_Logic.dic_displayAll(word);
+  });
+
 
 commander
   .command('def <word>')
@@ -22,7 +29,6 @@ commander
   .action((word) => {
   		App_Logic.dic_synonyms(word);
   });
-
 
 
 commander
@@ -40,23 +46,6 @@ commander
   		App_Logic.dic_examples(word);
   });
 
-// commander
-//   .command('dict <word>')
-//   .description('All details of word')
-//   .action((word) => {
-//     console.log(word)
-//           App_Logic.dic_displayAll(word);
-//   });
-
-commander
-  .command('[words...]')
-  .description('All details of word')
-  .action((words) => {
-          console.log(words)
-  });
-
-
-
 commander
   .command('play')
   .description('Word Guessting Game')
@@ -67,11 +56,25 @@ commander
   });
 
 
-// commander
-//   .command('')
-//   .description("Word of the day")
-//   .action(App_Logic.dic_wordoftheday());
+// for command like wordhelp only
+ 
+if (process.argv.length < 3) {
+  App_Logic.dic_wordoftheday();
+}
 
+
+// for command like wordhelp dict <word>  or wordhelp <word>
+
+if (process.argv.length == 3 || process.argv.length == 4) {
+  if(process.argv.length == 4){
+    if(process.argv[2] === "dict"){
+      App_Logic.dic_displayAll(process.argv[3]);
+    }
+  }else{
+    if(process.argv[2] !== "play")
+      App_Logic.dic_displayAll(process.argv[2]);
+  }
+}
 
 
 commander.parse(process.argv);

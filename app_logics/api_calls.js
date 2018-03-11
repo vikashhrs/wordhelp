@@ -24,25 +24,6 @@ module.exports.wordOfTheDay = function(){
 
 	return requestPromise(options);
 	
-	// request.get(
-	// 		{
-	// 			url: rootUrl + "wordOfTheDay", 
-	// 			qs : { 
-	// 				"date" : todaysDate, 
-	// 				"api_key" : auth.api_key
-	// 			}
-	// 		}, function(err, response, body) {
-
-	// 			let jsonBody = JSON.parse(body);
-
-	// 	    	if(err){
-	// 	    		throw err;
-	// 	    	}
-
-	// 	    	return jsonBody;
-
-	// 	    }
-	// )
 }
 
 module.exports.synonymsOfWord = function(word, limit = 5){

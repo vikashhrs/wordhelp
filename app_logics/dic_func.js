@@ -92,8 +92,6 @@ module.exports.dic_definitions = function(word){
 
 module.exports.dic_displayAll = function(word){
 
-	console.log(word)
-
 	let listOfPromises = [
 		requests.definitionsOfWord(word),
 		requests.synonymsOfWord(word),
@@ -106,6 +104,9 @@ module.exports.dic_displayAll = function(word){
 		.then(function(jsonData){
 
 			displayDefinitions(jsonData[0],word);
+			displaySynonyms(jsonData[1],word);
+			displayAntonyms(jsonData[2],word);
+			displayExamples(jsonData[3],word);
 
 		})
 		.catch(function(err){

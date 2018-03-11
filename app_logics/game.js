@@ -1,6 +1,7 @@
 const inquirer = require("inquirer");
 const requests = require('./api_calls');
 const chalk = require("chalk");
+
 const takeInputQuestion = [
 	{
 
@@ -35,7 +36,6 @@ module.exports.generateRandomWord = function(){
 		.getRandomWord()
 		.then(function(data){
 			const word = data.word;
-			console.log(word);
 			listOfPromises = [
 
 				requests.definitionsOfWord(word),
@@ -47,11 +47,11 @@ module.exports.generateRandomWord = function(){
 				.all(listOfPromises)
 				.then(function(data){
 
-					let listOfSynonyms = getListOfWords(data[1]);
+					displayDefinitions(data[0]);
 
-					console.log(listOfSynonyms);
+					let listOfCorrectWords = getListOfWords(data[1],word);
 
-					playRecursive(word, listOfSynonyms);
+					playRecursive(listOfCorrectWords, word);
 				})
 				.catch(function(err){
 					console.log(err);
@@ -66,20 +66,26 @@ module.exports.generateRandomWord = function(){
 
 }
 
-function getListOfWords(jsonOject){
+function getListOfWords(jsonOject,word){
 
-		let emptyList = [];
-		return jsonOject.length != 0 ? jsonOject[0].words : emptyList;
+		let wordList = [];
+		if(jsonOject.length != 0){
+			jsonOject[0].words.forEach(function(eachWord){
+				wordList.push(eachWord.toLowerCase());
+			})
+		}
+		wordList.push(word.toLowerCase());
+		return word;
 
 }
 
-function playRecursive(word,listOfSynonyms){
+function playRecursive(listOfCorrectWords,word){
 		
 		inquirer
 		.prompt(takeInputQuestion)
 		.then(function(input){
 			
-			if(input.word == word || listOfSynonyms.includes(input.word))
+			if(listOfCorrectWords.includes(input.word.trim().toLowerCase()))
 				console.log("Congo!! You won.");
 			else{
 
@@ -91,11 +97,11 @@ function playRecursive(word,listOfSynonyms){
 
 						if(selectedChoice.choice === "Try Again"){
 						
-							playRecursive(word, listOfSynonyms);
+							playRecursive(listOfCorrectWords);
 
 						}else if(selectedChoice.choice === "Help me with an hint"){
 							console.log("Scrambled Word of the actual word is ",chalk.green(scrambeWord(word)))
-							playRecursive(word, listOfSynonyms);
+							playRecursive(listOfCorrectWords);
 
 						}else{
 
@@ -119,4 +125,23 @@ function scrambeWord(wordToScramble) {
         wordToScramble[j] = a;
     }
     return wordToScramble.join("");
+}
+
+function displayDefinitions(jsonData){
+
+	console.log("Figure out the word from the definitions below");
+
+	if(jsonData.length != 0){
+
+    	jsonData.forEach(function(terms){
+			console.log(chalk.cyan(terms.text));
+			console.log();
+    	});
+
+    }else{
+
+    	console.log(chalk.bgRed("Sorry! No definitions at this time."))
+
+    }
+
 }
